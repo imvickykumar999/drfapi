@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
-  <title>Portfolio - Marlon</title>
+  <title>Portfolio - Vicky</title>
 </head>
 <body>
 
 <!--===== HEADER =====-->
 <header class="l-header">
   <nav class="nav bd-grid">
-    <div><a href="#" class="nav__logo">Marlon</a></div>
+    <div><a href="#" class="nav__logo">Vicky</a></div>
     <div class="nav__menu" id="nav-menu">
       <ul class="nav__list">
         <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
@@ -58,7 +58,7 @@
     <div class="about__container bd-grid">
       <div class="about__img"><img src="assets/img/about.jpg" alt="Profile" id="about-image" /></div>
       <div>
-        <h2 class="about__subtitle" id="about-name">I'm Marlon</h2>
+        <h2 class="about__subtitle" id="about-name">I'm Vicky</h2>
         <p class="about__text" id="about-bio">Loading bio...</p>
       </div>
     </div>
@@ -87,25 +87,26 @@
   <section class="contact section" id="contact">
     <h2 class="section-title">Contact</h2>
     <div class="contact__container bd-grid">
-      <form action="" class="contact__form">
-        <input type="text" placeholder="Name" class="contact__input" />
-        <input type="mail" placeholder="Email" class="contact__input" />
-        <textarea cols="0" rows="10" class="contact__input"></textarea>
-        <input type="button" value="Enviar" class="contact__button button" />
+
+      <form id="contact-form" class="contact__form">
+        <input type="text" id="flname" placeholder="Name" class="contact__input" required />
+        <input type="email" id="email" placeholder="Email" class="contact__input" required />
+        <textarea id="message" cols="0" rows="10" class="contact__input" required></textarea>
+        <input type="button" value="Submit" id="submit-btn" class="contact__button button" />
       </form>
+
     </div>
   </section>
 </main>
 
 <!--===== FOOTER =====-->
 <footer class="footer">
-  <p class="footer__title">Marlon</p>
+  <p class="footer__title">Vicky</p>
   <div class="footer__social">
-    <a href="#" class="footer__icon"><i class='bx bxl-facebook'></i></a>
-    <a href="#" class="footer__icon"><i class='bx bxl-instagram'></i></a>
-    <a href="#" class="footer__icon"><i class='bx bxl-twitter'></i></a>
+    <a target="_blank" href="https://www.instagram.com/imvickykumar999" class="footer__icon"><i class='bx bxl-instagram'></i></a>
+    <a target="_blank" href="https://twitter.com/imvickykumar999" class="footer__icon"><i class='bx bxl-twitter'></i></a>
   </div>
-  <p class="footer__copy">&#169; Bedimcode. All rights reserved</p>
+  <p class="footer__copy">&#169; All rights reserved @imvickykumar999</p>
 </footer>
 
 <!--===== SCROLL REVEAL =====-->
@@ -114,7 +115,7 @@
 <!--===== JQUERY + AJAX PORTFOLIO FETCH =====-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  const BASE_URL = "https://drfapi.pythonanywhere.com/api";
+  const BASE_URL = "http://localhost:8000/api";
 
   $(document).ready(function () {
     // Home
@@ -166,6 +167,41 @@
       });
       $('#work-list').html(html);
     });
+
+    // Contact form submission
+    $('#submit-btn').click(function (e) {
+      e.preventDefault(); // Prevent the default form submission
+
+      // Gather form data
+      const name = $('#flname').val();
+      const email = $('#email').val();
+      const message = $('#message').val();
+
+      // Check if the fields are not empty
+      if (name && email && message) {
+        $.ajax({
+          url: `${BASE_URL}/contact/`,
+          type: 'POST',
+          data: {
+            name: name,
+            email: email,
+            message: message,
+            csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()  // Get CSRF token from the form
+          },
+          success: function (response) {
+            alert(response.message); // Display success message
+            $('#contact-form')[0].reset(); // Reset form fields
+          },
+          error: function (xhr) {
+            const error = xhr.responseJSON;
+            alert(error.error); // Display error message
+          }
+        });
+      } else {
+        alert('Please fill in all fields.');
+      }
+    });
+
   });
 </script>
 
@@ -173,6 +209,3 @@
 <script src="assets/js/main.js"></script>
 </body>
 </html>
-
-
-
