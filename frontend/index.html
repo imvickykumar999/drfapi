@@ -128,7 +128,7 @@
     // About
     $.get(`${BASE_URL}/about/`, function (data) {
       $('#about-name').text(`I'm ${data.name}`);
-      $('#about-bio').text(data.bio);
+      $('#about-bio').html(data.bio);
       $('#about-image').attr('src', data.profile_image);
     });
 
@@ -146,7 +146,6 @@
         html += `
           <div class="skills__data">
             <div class="skills__names">
-              <i class='bx bxl-${skill.skill_name.toLowerCase()} skills__icon'></i>
               <span class="skills__name">${skill.skill_name}</span>
             </div>
             <div class="skills__bar" style="width: ${skill.proficiency}%"></div>
@@ -174,5 +173,6 @@
 <script src="assets/js/main.js"></script>
 </body>
 </html>
+
 
 
