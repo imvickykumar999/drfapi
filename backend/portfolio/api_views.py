@@ -10,20 +10,6 @@ from .views import send_telegram_message
 from django.shortcuts import render
 from django.urls import get_resolver
 
-def api_overview(request):
-    # Get all URL patterns under /api/
-    api_routes = []
-    for pattern in get_resolver().url_patterns:
-        if hasattr(pattern, 'url_patterns'):  # This is an included router like path('api/', include(...))
-            if pattern.pattern._route == 'api/':  # Look for your `api/` route
-                for sub_pattern in pattern.url_patterns:
-                    name = sub_pattern.name or 'No Name'
-                    url = f"/api/{sub_pattern.pattern._route}"
-                    api_routes.append((name, url))
-
-    return render(request, 'api_overview.html', {'routes': api_routes})
-
-
 class HomeView(APIView):
     def get(self, request):
         home_content = Home.objects.first()
@@ -68,3 +54,14 @@ def submit_contact(request):
         else:
             return JsonResponse({"error": "Please fill in all the fields."}, status=400)
     return JsonResponse({"error": "Invalid request method."}, status=405)
+
+def api_overview(request):
+    api_routes = []
+    for pattern in get_resolver().url_patterns:
+        if hasattr(pattern, 'url_patterns'):
+            if pattern.pattern._route == 'api/':
+                for sub_pattern in pattern.url_patterns:
+                    name = sub_pattern.name or 'No Name'
+                    url = f"/api/{sub_pattern.pattern._route}"
+                    api_routes.append((name, url))
+    return render(request, 'api_overview.html', {'routes': api_routes})
