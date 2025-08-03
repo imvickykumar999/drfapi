@@ -3,8 +3,8 @@ from django.contrib import messages
 from .models import *
 import requests
 
-TELEGRAM_BOT_TOKEN = '6165663083:AAFwNHHUAzZZ78DOcOxwoHghrXSrlrTjS60'
-TELEGRAM_CHAT_ID = '5721393154'
+TELEGRAM_BOT_TOKEN = 'TELEGRAM_BOT_TOKEN'
+TELEGRAM_CHAT_ID = 'TELEGRAM_CHAT_ID'
 
 def send_telegram_message(name, email, message):
     text = f"📬 New Portfolio Message:\n\n👤 Name: {name}\n📧 Email: {email}\n\n📝 Message:\n{message}"
