@@ -1,6 +1,23 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import *
+import requests
+
+TELEGRAM_BOT_TOKEN = '6165663083:AAFwNHHUAzZZ78DOcOxwoHghrXSrlrTjS60'
+TELEGRAM_CHAT_ID = '5721393154'
+
+def send_telegram_message(name, email, message):
+    text = f"📬 New Portfolio Message:\n\n👤 Name: {name}\n📧 Email: {email}\n\n📝 Message:\n{message}"
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    payload = {
+        'chat_id': TELEGRAM_CHAT_ID,
+        'text': text,
+        'parse_mode': 'Markdown'
+    }
+    try:
+        requests.post(url, data=payload, timeout=5)
+    except requests.exceptions.RequestException:
+        pass  # You can log this if needed
 
 def index(request):
     home_content = Home.objects.first()
@@ -16,6 +33,7 @@ def index(request):
 
         if name and email and message:
             Contact.objects.create(name=name, email=email, message=message)
+            send_telegram_message(name, email, message)
             messages.success(request, 'Your message has been sent successfully!')
             return redirect('index')
 
