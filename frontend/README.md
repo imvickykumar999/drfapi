@@ -10,5 +10,4 @@
 
 💙 Join the channel to see more videos like this. [Bedimcode](https://www.youtube.com/@Bedimcode)
 
-![preview img](/preview.png)
-
+<img width="1299" height="700" alt="image" src="https://github.com/user-attachments/assets/654b58eb-a2fd-4471-924f-0fe4096d24da" />
