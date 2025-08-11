@@ -307,62 +307,84 @@ img {
 }
 
 /* ===== WORK =====*/
-.work__container {
-  row-gap: 2rem;
+.work__container{
+  row-gap:2rem
 }
 
-.work__img {
-  position: relative;
-  display: block;
-  box-shadow: 0px 4px 25px rgba(14, 36, 49, 0.15);
-  border-radius: 0.5rem;
-  overflow: hidden;
+.work__img{
+  position:relative;
+  display:block;
+  width:100%;
+  aspect-ratio:16/9; /* uniform height; change if you like */
+  border-radius:.5rem;
+  overflow:hidden;
+  box-shadow:0 4px 25px rgba(14,36,49,.15)
 }
 
-.work__img img {
-  transition: transform 1s;
+/* blurred background using the same image */
+.work__img::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  background-image:var(--bg-url);
+  background-size:cover;
+  background-position:center;
+  filter:blur(14px);
+  transform:scale(1.12) /* hide blur edges */
 }
 
-.work__img:hover img {
-  transform: scale(1.1);
+/* foreground image stays centered; show entire image */
+.work__img img{
+  position:relative;
+  z-index:1;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transition:transform 1s
 }
 
-.work__overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #000;
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-align: center;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-  padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.8); /* Solid patch behind text */
-  border-radius: 0.3rem;
+.work__img:hover img{
+  transform:scale(1.04)
 }
 
-.work__img::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.7); /* White faded background */
-  opacity: 0;
-  transition: opacity 0.4s ease;
+/* overlay tint + title */
+.work__img::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  background:rgba(255,255,255,.6);
+  opacity:0;
+  transition:opacity .35s ease
 }
 
-.work__img:hover::after,
-.work__img:hover .work__overlay {
-  opacity: 1;
+.work__overlay{
+  position:absolute;
+  z-index:3;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  color:#000;
+  font-weight:700;
+  font-size:1.1rem;
+  text-align:center;
+  opacity:0;
+  transition:opacity .35s ease;
+  pointer-events:none;
+  padding:.4rem .8rem;
+  border-radius:.35rem;
+  background:rgba(255,255,255,.85)
 }
 
-/* Mobile responsive adjustments */
-@media screen and (max-width: 576px) {
-  .work__overlay {
-    font-size: 1rem;
-    padding: 0.4rem 0.8rem;
+.work__img:hover::after,.work__img:hover .work__overlay{
+  opacity:1
+}
+
+@media (max-width:576px){
+  .work__overlay{
+    font-size:1rem
   }
 }
 
