@@ -158,13 +158,15 @@
     });
 
     // Work
-    $.get(`${BASE_URL}/work/`, function (projects) {
+    $.get(`${BASE_URL}/work/`, function(projects){
       let html = '';
-      projects.forEach(project => {
+      projects.forEach(p=>{
+        const name = (p.project_name || '').replace(/-/g,' ');
         html += `
-          <a href="${project.project_url}" class="work__img" target="_blank">
-            <img src="${project.project_image}" alt="${project.project_name}" />
-            <div class="work__overlay">${project.project_name}</div>
+          <a href="${p.project_url}" class="work__img" target="_blank"
+            style="--bg-url:url('${p.project_image}')">
+            <img src="${p.project_image}" alt="${name}">
+            <div class="work__overlay">${name}</div>
           </a>`;
       });
       $('#work-list').html(html);
@@ -211,6 +213,7 @@
 <script src="assets/js/main.js"></script>
 </body>
 </html>
+
 
 
 
