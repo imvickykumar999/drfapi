@@ -164,6 +164,7 @@
         html += `
           <a href="${project.project_url}" class="work__img" target="_blank">
             <img src="${project.project_image}" alt="${project.project_name}" />
+            <div class="work__overlay">${project.project_name}</div>
           </a>`;
       });
       $('#work-list').html(html);
@@ -210,5 +211,6 @@
 <script src="assets/js/main.js"></script>
 </body>
 </html>
+
 
 
