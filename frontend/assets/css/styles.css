@@ -382,6 +382,26 @@ img {
   opacity:1
 }
 
+.whatsapp_float {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  z-index: 9;
+}
+
+.whatsapp_float_btn {
+  width: 70px;
+  height: 70px;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0, 255, 0, 0.5);
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
 @media (max-width:576px){
   .work__overlay{
     font-size:1rem
