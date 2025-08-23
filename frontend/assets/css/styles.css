@@ -393,7 +393,7 @@ img {
   width: 70px;
   height: 70px;
   border-radius: 50px;
-  box-shadow: 0 4px 10px rgba(0, 255, 0, 0.5);
+  box-shadow: 0 4px 10px rgba(22, 119, 255, 0.5);
   animation: bounce 2s infinite;
 }
 
