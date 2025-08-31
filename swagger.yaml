@@ -1,0 +1,90 @@
+openapi: 3.0.3
+info:
+  title: Portfolio API Collection
+  description: Postman collection for Portfolio Django REST API endpoints
+  contact: {}
+  version: 1.0.0
+servers:
+- url: http://127.0.0.1
+paths:
+  /api/:
+    get:
+      summary: API Overview
+      description: API Overview
+      operationId: apiOverview
+      responses:
+        "200":
+          description: ""
+  /api/home/:
+    get:
+      summary: Home
+      description: Home
+      operationId: home
+      responses:
+        "200":
+          description: ""
+  /api/about/:
+    get:
+      summary: About
+      description: About
+      operationId: about
+      responses:
+        "200":
+          description: ""
+  /api/skilled/:
+    get:
+      summary: Skilled
+      description: Skilled
+      operationId: skilled
+      responses:
+        "200":
+          description: ""
+  /api/skills/:
+    get:
+      summary: Skills
+      description: Skills
+      operationId: skills
+      responses:
+        "200":
+          description: ""
+  /api/work/:
+    get:
+      summary: Work
+      description: Work
+      operationId: work
+      responses:
+        "200":
+          description: ""
+  /api/contact/:
+    post:
+      summary: Submit Contact
+      description: Submit Contact
+      operationId: submitContact
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/api_contact_body"
+            examples:
+              Submit Contact:
+                value:
+                  email: johndoe@example.com
+                  message: "Hello, this is a test message!"
+                  name: John Doe
+      responses:
+        "200":
+          description: ""
+components:
+  schemas:
+    api_contact_body:
+      type: object
+      properties:
+        email:
+          type: string
+          example: johndoe@example.com
+        message:
+          type: string
+          example: "Hello, this is a test message!"
+        name:
+          type: string
+          example: John Doe
