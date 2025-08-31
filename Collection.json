@@ -1,0 +1,133 @@
+{
+  "info": {
+    "name": "Portfolio API Collection",
+    "_postman_id": "b34f7c9d-4a8e-4e0a-b8b5-123456789abc",
+    "description": "Postman collection for Portfolio Django REST API endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "API Overview",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://drfapi.pythonanywhere.com/api/",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["api", ""]
+        }
+      }
+    },
+    {
+      "name": "Home",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://drfapi.pythonanywhere.com/api/home/",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["api", "home", ""]
+        }
+      }
+    },
+    {
+      "name": "About",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://drfapi.pythonanywhere.com/api/about/",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["api", "about", ""]
+        }
+      }
+    },
+    {
+      "name": "Skilled",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://drfapi.pythonanywhere.com/api/skilled/",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["api", "skilled", ""]
+        }
+      }
+    },
+    {
+      "name": "Skills",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://drfapi.pythonanywhere.com/api/skills/",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["api", "skills", ""]
+        }
+      }
+    },
+    {
+      "name": "Work",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://drfapi.pythonanywhere.com/api/work/",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["api", "work", ""]
+        }
+      }
+    },
+    {
+      "name": "Submit Contact",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "John Doe",
+              "type": "text"
+            },
+            {
+              "key": "email",
+              "value": "johndoe@example.com",
+              "type": "text"
+            },
+            {
+              "key": "message",
+              "value": "Hello, this is a test message!",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://drfapi.pythonanywhere.com/api/contact/",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["api", "contact", ""]
+        }
+      }
+    }
+  ]
+}
