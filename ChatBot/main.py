@@ -3,7 +3,7 @@ telegram_weather_bot.py
 
 Telegram webhook that uses:
 - InMemorySessionService for per-chat (and per-topic) sessions
-- ADK Runner to call your weather_agent (with get_weather tool)
+- ADK Runner to call your blog_agent (with get_weather tool)
 - Groq via LiteLlm (primary + fallbacks)
 - Flask (sync) + asyncio to run async ADK code
 - Optional voice transcription via Groq Whisper
@@ -79,8 +79,9 @@ WEBHOOK_URL = f"{PUBLIC_BASE_URL}{WEBHOOK_PATH}"
 
 GROQ_PRIMARY = "groq/llama-3.3-70b-versatile"
 GROQ_FALLBACKS = [
-    "groq/llama3-8b-8192",
-    "groq/gemma2-9b-it",   # ✅ valid replacement
+    "groq/llama-3.1-8b-instant",  # replacement for llama3-8b-8192
+    # add one more healthy fallback to avoid single-point failure
+    "groq/llama-3.3-70b-versatile",  # (reusing primary as a last resort is ok)
 ]
 
 DEFAULT_MAX_TOKENS = 256
@@ -95,19 +96,22 @@ def make_model(model_name: str) -> LiteLlm:
         num_retries=0,
     )
 
-weather_agent = Agent(
-    name="weather_agent_v1",
+blog_agent = Agent(
+    name="blog_agent_v1",
     model=make_model(GROQ_PRIMARY),
-    description="You are blog assistant of imvickykumar999 company.",
+    description="You are the blog assistant of imvickykumar999 company.",
     instruction=(
-        "You are a helpful assistant. "
-        "When the user asks for specific information, "
-        "use the available tool(s) to query the appropriate API. "
-        "If the tool returns an error, inform the user politely. "
-        "If the tool is successful, present the information clearly and concisely. "
+        "You are a helpful assistant.\n\n"
+        "You have access to the following tools: get_home, get_about, get_skilled, get_skills, get_work.\n"
+        "Each tool takes exactly one argument named 'query' (a string). "
+        "Always call them using only this 'query' parameter. "
+        "Do not invent or pass other arguments such as 'company' or 'name'.\n\n"
+        "When a tool returns, extract the 'report' field from the result and present it to the user clearly and concisely. "
+        "If a tool returns an error, inform the user politely about the issue."
     ),
-    tools=[get_home, get_about, get_skilled, get_skills, get_work, ],
+    tools=[get_home, get_about, get_skilled, get_skills, get_work],
 )
+
 
 # ----------------------------
 # Session service & runner
@@ -116,7 +120,7 @@ session_service = InMemorySessionService()
 APP_NAME = "blog_assistant_app"
 
 runner = Runner(
-    agent=weather_agent,
+    agent=blog_agent,
     app_name=APP_NAME,
     session_service=session_service,
 )
